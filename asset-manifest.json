@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/github.io/React_Ghibli_Studio/static/css/main.e6c13ad2.css",
+    "main.js": "/github.io/React_Ghibli_Studio/static/js/main.edac390b.js",
+    "static/js/787.40cde3c1.chunk.js": "/github.io/React_Ghibli_Studio/static/js/787.40cde3c1.chunk.js",
+    "index.html": "/github.io/React_Ghibli_Studio/index.html",
+    "main.e6c13ad2.css.map": "/github.io/React_Ghibli_Studio/static/css/main.e6c13ad2.css.map",
+    "main.edac390b.js.map": "/github.io/React_Ghibli_Studio/static/js/main.edac390b.js.map",
+    "787.40cde3c1.chunk.js.map": "/github.io/React_Ghibli_Studio/static/js/787.40cde3c1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.edac390b.js"
+  ]
+}
