@@ -1,12 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import styled, { keyframes, css, createGlobalStyle } from "styled-components";
+import styled, { keyframes, createGlobalStyle } from "styled-components";
+import Kuros from "./components/Kuros";
+import MovieList from "./components/MovieList";
+import LangToggleBtn from "./components/LangToggleBtn";
+import SortBtn from "./components/SortBtn";
 
 function App() {
   // 받아온 영화 데이터를 저장하기 위한 빈 배열
   const [movie, setMovie] = useState([]);
 
-  // 첫 렌더링 될 때, 데이터 get
+  // 첫 렌더링 될 때, 데이터 GET
   useEffect(() => {
     axios
       .get("https://ghibliapi.herokuapp.com/films")
@@ -14,38 +18,7 @@ function App() {
       .catch((e) => console.log("error", e));
   }, []);
 
-  console.log("movie list", movie);
-
-  // 상영 시간을 시/분 단위로 계산
-  function runningTime(runtime) {
-    const min = runtime % 60;
-    const hour = (runtime - min) / 60;
-
-    const runTime = `${hour}시간 ${min}분`;
-
-    return runTime;
-  }
-
-  // 정렬 구현
-  // 정렬된 값들을 저장하기 위한 빈 배열
-  let sortedScore = [];
-
-  function bestScore(movie) {
-    movie.map((item) => {
-      // 영화의 rt_score와 id로 구성된 object를 빈 배열에 저장
-      // rt_score만 저장하면 어떤 영화의 값인지 모르기 때문에, 구분하기 위한 id가 필요
-      const forSort = { rt_score: item.rt_score, id: item.id };
-      sortedScore.push(forSort);
-
-      // rt_score를 내림차순(큰 점수부터) 정렬
-      sortedScore.sort((a, b) => {
-        return b.rt_score - a.rt_score;
-      });
-    });
-  }
-
-  bestScore(movie);
-  console.log("sorted", sortedScore);
+  // console.log("movie", movie);
 
   // 스크롤 시 로고가 커지는 동작 구현
   // 스크롤 값을 가져오기 위한 ref 설정
@@ -57,6 +30,9 @@ function App() {
 
   // top을 변화시킬 때 사용할 변수
   const [scrollForTop, setScrollForTop] = useState(null);
+
+  // Kuros 컴포넌트에 전달하기 위한 변수
+  const [kuroTop, setKuroTop] = useState(null);
 
   useEffect(() => {
     window.addEventListener("scroll", handleLogo);
@@ -81,14 +57,25 @@ function App() {
 
     // 원하는 범위에서만 setState가 되도록 설정
     // 얼만큼 내려갈지 고려해서 계산해야함
-    if (positiveTop > 0 && positiveTop < 700) {
+    if (positiveTop > 0 && positiveTop < 780) {
       setScrollForTop(positiveTop);
     }
+
+    if (positiveTop > 0 && positiveTop < 920) {
+      setKuroTop(positiveTop);
+    }
   };
+
+  // 영화 제목 표시 언어 선택
+  // 0 : KR, 1 : JP, 2 : ENG
+  const [lang, setLang] = useState(1);
 
   return (
     <TopDiv ref={divRef}>
       <GlobalStyle />
+
+      <LangToggleBtn setLang={setLang} />
+
       <MainBanner>
         <BannerImg
           src="https://ghibli-park.jp/site/img/index/main3.jpg"
@@ -104,23 +91,11 @@ function App() {
         />
       </LogoWrapper>
 
-      <MovieWrapperDiv>
-        {movie.map((item) => {
-          return (
-            <MovieDiv>
-              <h2>{item.original_title}</h2>
-              <MovieImg src={item.image} alt="movie" />
-              <p>감독 : {item.director}</p>
-              <p>프로듀서 : {item.producer}</p>
-              <p>개봉 년도 : {item.release_date}년</p>
-              <p>
-                상영 시간 : {item.running_time}분(
-                {runningTime(item.running_time)})
-              </p>
-            </MovieDiv>
-          );
-        })}
-      </MovieWrapperDiv>
+      <SortBtn movie={movie} setMovie={setMovie} />
+
+      <MovieList movie={movie} lang={lang} />
+
+      <Kuros kuroTop={kuroTop} />
     </TopDiv>
   );
 }
@@ -146,7 +121,7 @@ const TopDiv = styled.div`
 `;
 
 const MainBanner = styled.div`
-  margin-bottom: 225px;
+  margin-bottom: 305px;
 `;
 
 const BannerImg = styled.img`
@@ -181,43 +156,4 @@ const LogoImg = styled.img`
   max-width: 1000px;
   width: ${(props) => `${1000 - props.scrollTop}px`};
   height: auto;
-`;
-
-const MovieWrapperDiv = styled.div`
-  display: flex;
-  width: 100vw;
-  flex-wrap: wrap;
-  // justify-content: center;
-  justify-content: space-around;
-`;
-
-const MovieDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 24%;
-  height: auto;
-  // box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
-  //   rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-  box-shadow: #d2c47f 0px 4px 8px -2px, #d2c47f 0px 0px 0px 1px;
-  // border: 1px solid black;
-  border-radius: 15px;
-  margin-bottom: 15px;
-  padding: 10px 0;
-
-  h2 {
-    margin: 0;
-  }
-
-  p {
-    margin: 0;
-  }
-`;
-
-const MovieImg = styled.img`
-  display: block;
-  width: 250px;
-  height: auto;
-  margin-bottom: 10px;
 `;
