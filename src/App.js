@@ -1,24 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import styled, { keyframes, createGlobalStyle } from "styled-components";
 import Kuros from "./components/Kuros";
 import MovieList from "./components/MovieList";
-import LangToggleBtn from "./components/LangToggleBtn";
-import SortBtn from "./components/SortBtn";
+import Axios from "./axios/Axios";
 
 function App() {
-  // 받아온 영화 데이터를 저장하기 위한 빈 배열
-  const [movie, setMovie] = useState([]);
-
-  // 첫 렌더링 될 때, 데이터 GET
-  useEffect(() => {
-    axios
-      .get("https://ghibliapi.herokuapp.com/films")
-      .then((res) => setMovie(res.data))
-      .catch((e) => console.log("error", e));
-  }, []);
-
-  // console.log("movie", movie);
+  const { movie, setMovie } = Axios();
 
   // 스크롤 시 로고가 커지는 동작 구현
   // 스크롤 값을 가져오기 위한 ref 설정
@@ -74,8 +61,6 @@ function App() {
     <TopDiv ref={divRef}>
       <GlobalStyle />
 
-      <LangToggleBtn setLang={setLang} />
-
       <MainBanner>
         <BannerImg
           src="https://ghibli-park.jp/site/img/index/main3.jpg"
@@ -91,9 +76,12 @@ function App() {
         />
       </LogoWrapper>
 
-      <SortBtn movie={movie} setMovie={setMovie} />
-
-      <MovieList movie={movie} lang={lang} />
+      <MovieList
+        movie={movie}
+        setMovie={setMovie}
+        lang={lang}
+        setLang={setLang}
+      />
 
       <Kuros kuroTop={kuroTop} />
     </TopDiv>

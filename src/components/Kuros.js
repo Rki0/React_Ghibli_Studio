@@ -14,7 +14,7 @@ function Kuros({ kuroTop }) {
     <>
       {kuroAni.map((item, index) => {
         return (
-          <BlackDustDiv className={`dust${item}`} kuroTop={kuroTop}>
+          <BlackDustDiv className={`dust${item}`} kuroTop={kuroTop} key={index}>
             <figure>
               <img
                 src="https://ghibli-park.jp/site/img/index/kuro02.svg"
@@ -29,7 +29,7 @@ function Kuros({ kuroTop }) {
         <LeftKuro>
           {LeftKuroNum.map((item, index) => {
             return (
-              <FloorDustDiv style={{ left: `${(item - 2) * 5}%` }}>
+              <FloorDustDiv style={{ left: `${(item - 2) * 5}%` }} key={index}>
                 <img
                   src="https://ghibli-park.jp/site/img/index/kuro02.svg"
                   alt="black dust"
@@ -42,7 +42,7 @@ function Kuros({ kuroTop }) {
         <RightKuro>
           {RightKuroNum.map((item, index) => {
             return (
-              <FloorDustDiv style={{ right: `${(item - 1) * 5}%` }}>
+              <FloorDustDiv style={{ right: `${(item - 1) * 5}%` }} key={index}>
                 <img
                   src="https://ghibli-park.jp/site/img/index/kuro02.svg"
                   alt="black dust"
