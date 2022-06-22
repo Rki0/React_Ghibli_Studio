@@ -70,7 +70,7 @@ function App() {
 
       <LogoWrapper scrollForTop={scrollForTop}>
         <LogoImg
-          src={process.env.PUBLIC_URL + "assets/Ghibli_Logo.png"}
+          src={process.env.PUBLIC_URL + "/assets/Ghibli_Logo.png"}
           alt="logo"
           scrollTop={scrollTop}
         />
