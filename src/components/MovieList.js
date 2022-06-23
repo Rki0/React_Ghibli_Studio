@@ -41,8 +41,6 @@ function MovieList({ movie, lang, setMovie, setLang }) {
   //   "아야와 마녀",
   // ];
 
-  // const movieCopy = [...movie];
-
   return (
     <MovieWrapperDiv>
       <LangToggleBtn setLang={setLang} />
