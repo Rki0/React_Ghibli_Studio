@@ -5,6 +5,7 @@ import MovieList from "./components/MovieList";
 import Axios from "./axios/Axios";
 
 function App() {
+  // "homepage": "https://Rki0.github.io/React_Ghibli_Studio/"
   const { movie, setMovie } = Axios();
 
   // 스크롤 시 로고가 커지는 동작 구현
