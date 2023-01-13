@@ -1,13 +1,14 @@
-import { useState, useEffect, useRef } from "react";
-import styled, { keyframes, createGlobalStyle } from "styled-components";
+import React, { useState, useEffect, useRef } from "react";
+import { createGlobalStyle } from "styled-components";
+
 import Kuros from "./components/Kuros";
 import MovieList from "./components/MovieList";
-import Axios from "./axios/Axios";
+import MainBanner from "./components/MainBanner";
+import MainDiv from "./components/MainDiv";
+import Logo from "./components/Logo";
+import Floor from "./components/Floor";
 
 function App() {
-  // "homepage": "https://Rki0.github.io/React_Ghibli_Studio/"
-  const { movie, setMovie } = Axios();
-
   // 스크롤 시 로고가 커지는 동작 구현
   // 스크롤 값을 가져오기 위한 ref 설정
   const divRef = useRef(null);
@@ -54,38 +55,24 @@ function App() {
     }
   };
 
-  // 영화 제목 표시 언어 선택
-  // 0 : KR, 1 : JP, 2 : ENG
-  const [lang, setLang] = useState(1);
-
   return (
-    <TopDiv ref={divRef}>
-      <GlobalStyle />
+    <React.Fragment>
+      <MainDiv ref={divRef}>
+        <GlobalStyle />
 
-      <MainBanner>
-        <BannerImg
-          src="https://ghibli-park.jp/site/img/index/main3.jpg"
-          alt="banner"
-        />
-      </MainBanner>
+        <MainBanner />
 
-      <LogoWrapper scrollForTop={scrollForTop}>
-        <LogoImg
-          src={process.env.PUBLIC_URL + "/assets/Ghibli_Logo.png"}
-          alt="logo"
-          scrollTop={scrollTop}
-        />
-      </LogoWrapper>
+        <Logo scrollForTop={scrollForTop} scrollTop={scrollTop} />
 
-      <MovieList
-        movie={movie}
-        setMovie={setMovie}
-        lang={lang}
-        setLang={setLang}
-      />
+        <>
+          <MovieList />
+        </>
 
-      <Kuros kuroTop={kuroTop} />
-    </TopDiv>
+        <Kuros kuroTop={kuroTop} />
+
+        <Floor />
+      </MainDiv>
+    </React.Fragment>
   );
 }
 
@@ -100,49 +87,4 @@ const GlobalStyle = createGlobalStyle`
   html::-webkit-scrollbar {
     display: none;
   }
-`;
-
-const TopDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-`;
-
-const MainBanner = styled.div`
-  margin-bottom: 305px;
-`;
-
-const BannerImg = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
-`;
-
-const ShowLogo = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const LogoWrapper = styled.div`
-  position: absolute;
-  top: ${(props) => `${props.scrollForTop}px`};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  animation: ${ShowLogo} 1000ms ease-in-out;
-`;
-
-const LogoImg = styled.img`
-  display: block;
-  min-width: 500px;
-  max-width: 1000px;
-  width: ${(props) => `${1000 - props.scrollTop}px`};
-  height: auto;
 `;
