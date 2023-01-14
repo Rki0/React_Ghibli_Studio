@@ -24,7 +24,7 @@ const ShowLogo = keyframes`
   }
 `;
 
-const LogoWrapper = styled.div.attrs({
+const LogoWrapper = styled.div.attrs((props) => ({
   style: {
     position: "absolute",
     display: "flex",
@@ -32,19 +32,17 @@ const LogoWrapper = styled.div.attrs({
     alignItems: "center",
     width: "100vw",
     height: "100vh",
+    top: `${props.scrollForTop}px`,
+    animation: () => `${ShowLogo} 1000ms ease-in-out`,
   },
-})`
-  top: ${(props) => `${props.scrollForTop}px`};
-  animation: ${ShowLogo} 1000ms ease-in-out;
-`;
+}))``;
 
-const LogoImg = styled.img.attrs({
+const LogoImg = styled.img.attrs((props) => ({
   style: {
     display: "block",
     minWidth: "500px",
     maxWidth: "1000px",
     height: "auto",
+    width: `${1000 - props.scrollTop}px`,
   },
-})`
-  width: ${(props) => `${1000 - props.scrollTop}px`};
-`;
+}))``;
