@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Rotate, Updown } from "../shared/animation";
+import { Rotate, Updown } from "../../shared/animation";
 
 const notScrollKuro = [1, 3, 5];
 

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import { Rotate } from "../shared/animation";
+import { Rotate } from "../../shared/animation";
 
 const scrollKuro = [2, 4];
 

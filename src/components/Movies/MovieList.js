@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import LangToggleBtn from "./LangToggleBtn";
 import SortBtn from "./SortBtn";
-import LoadData from "../LoadData";
+import LoadData from "../../LoadData";
 import MovieItem from "./MovieItem";
 
 const loadedMovie = LoadData();

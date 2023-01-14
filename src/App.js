@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { createGlobalStyle } from "styled-components";
 
-import Kuros from "./components/Kuros";
-import MovieList from "./components/MovieList";
-import MainBanner from "./components/MainBanner";
+import Kuros from "./components/Kuro/Kuros";
+import MovieList from "./components/Movies/MovieList";
+import MainBanner from "./components/Banner/MainBanner";
 import MainDiv from "./components/MainDiv";
 import Logo from "./components/Logo";
-import Floor from "./components/Floor";
+import Floor from "./components/Kuro/Floor";
 
 function App() {
   // 스크롤 시 로고가 커지는 동작 구현
