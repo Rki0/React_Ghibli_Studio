@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 function Logo(props) {
   return (
@@ -33,9 +33,12 @@ const LogoWrapper = styled.div.attrs((props) => ({
     width: "100vw",
     height: "100vh",
     top: `${props.scrollForTop}px`,
-    animation: () => `${ShowLogo} 1000ms ease-in-out`,
   },
-}))``;
+}))`
+  animation: ${css`
+    ${ShowLogo} 1000ms ease-in-out
+  `};
+`;
 
 const LogoImg = styled.img.attrs((props) => ({
   style: {
