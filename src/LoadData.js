@@ -1,8 +1,6 @@
 import Data from "./Data.json";
 
 function LoadData() {
-  // API 통신을 위한 URL
-  // const URL = "https://ghibliapi.herokuapp.com/films";
   const importedMovie = Data.movies;
 
   const krTitle = [
